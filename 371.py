@@ -1,8 +1,18 @@
 #!/usr/bin/python
-
+samarrls = [4, 2, 7, 3, 6, 8, 5, 1]
 def qcheck(arrls):
 	print("arrls")
 	#for each el generate a lists of conflicting positions for each column
+	i=0
+	n=len(samarrls)
+	for i in range(n):
+		print(i)
+		invls=invmvgen(i,samarrls[i],n) #{{},{},{}}
+		for o in range(i+1,n):
+			if samarrls[o] in invls[o-i]:
+				print("invalid")
+				return False
+	return True
 
 def invmvgen(qcol,qrow,n): #return ls of invalid positions {{},{},{}}
 	ls=[]
@@ -10,17 +20,22 @@ def invmvgen(qcol,qrow,n): #return ls of invalid positions {{},{},{}}
 		nls=[]
 		nls.append(qrow)
 		#check if diagonal is above the bounds
-		if(qrow+(x-qcol)<(n-1)):
+		if(qrow+(x-qcol)<(n)):
 			nls.append(qrow+(x-qcol))
-		if(qrow-(x-qcol)>(0)):
+		if(qrow-(x-qcol)>=(0)):
 			nls.append(qrow-(x-qcol))
 		ls.append(nls)
 		print(ls)
+	return ls
 
 
-invmvgen(0,0,8)
+invmvgen(0,4,8)
+
+qcheck([4, 2, 7, 3, 6, 8, 5, 1])
 '''
-singlecheck(qcol,qrow): #return ls of invalid positions {{},{},{}}
+
+
+singlecheck(qcol,qrow): #return ls of invalid positions v
 	ls={}
 	#columns are from 0-7
 	num_cols_2_check = 8-qcol -1 # unnecessary
